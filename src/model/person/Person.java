@@ -1,5 +1,7 @@
 package model.person;
 
-public class Person {
-    
+public abstract class Person {
+    private String name;
+    private String lastName;
+    private int age;
 }
