@@ -3,8 +3,8 @@ package model.person.player;
 public class GoalKeeper extends Player{
     private int goalsReceived;
 
-    public GoalKeeper(String name, String lastName, int age, int goalsReceived) {
-        super(name, lastName, age);
+    public GoalKeeper(String name, String lastName, int age, int goalsReceived, boolean holder) {
+        super(name, lastName, age, holder);
         this.goalsReceived = goalsReceived;
     }
 
