@@ -7,16 +7,34 @@ import view.View;
 
 public class Test {
     private View view;
+    private String menuMessage = "Bienvenido, porfavor ingrese el numero asociado a la opcion que desea esocger: " +
+            "\n1. Ver equipos de Futbol" +
+            "\n2. Gestionar campeonato" +
+            "\n3. Salir";
 
     public Test(View view) {
         this.view = view;
     }
 
     public void run() {
-        createTeams();
+        int option = view.ShowMenu(menuMessage);
+        switch (option) {
+            case 1:
+                view.print(showTeamsInformation());
+                break;
+            case 2:
+                break;
+            case 3:
+                view.print("Saliendo...");
+                System.exit(0);
+                break;
+            default:
+                view.print("Error, porfavor vuelva a intentarlo.");
+        }
     }
 
-    public void createTeams(){
+    public Team[] createTeams() {
+        Team[] teams = new Team[3];
         Coach coachTeam1 = new Coach("Carlos", "Queiroz", 66, 30, true);
         GoalKeeper goalKeeperTeam1 = new GoalKeeper("David", "Ospina", 30, 10, true);
         Defender[] defendersTeam1 = new Defender[4];
@@ -32,8 +50,10 @@ public class Test {
         Forwards[] forwardsTeam1 = new Forwards[2];
         forwardsTeam1[0] = new Forwards("Radamel", "Falcao", 33, 15, true);
         forwardsTeam1[1] = new Forwards("Duván", "Zapata", 28, 12, true);
-        Team team1 = new Team("Selección Colombiana de Futbol", "Colombia", coachTeam1, defendersTeam1, forwardsTeam1, midfieldersTeam1, goalKeeperTeam1);
-        view.print(team1.showInformation());
+        Team team1 = new Team("Selección Colombiana de Futbol", "Colombia", coachTeam1, 1, defendersTeam1,
+                forwardsTeam1,
+                midfieldersTeam1, goalKeeperTeam1);
+        teams[0] = team1;
 
         Coach coachTeam2 = new Coach("Lionel", "Scaloni", 44, 5, true);
         GoalKeeper goalKeeperTeam2 = new GoalKeeper("Emiliano", "Martinez", 30, 11, true);
@@ -50,8 +70,10 @@ public class Test {
         Forwards[] forwardsTeam2 = new Forwards[2];
         forwardsTeam2[0] = new Forwards("Lautaro", "Martinez", 25, 4, true);
         forwardsTeam2[1] = new Forwards("Julian", "Alvarez", 22, 12, true);
-        Team team2 = new Team("Selección Argentina de Futbol", "Argentina", coachTeam2, defendersTeam2, forwardsTeam2, midfieldersTeam2, goalKeeperTeam2);
-        view.print(team2.showInformation());
+        Team team2 = new Team("Selección Argentina de Futbol", "Argentina", coachTeam2, 2, defendersTeam2,
+                forwardsTeam2,
+                midfieldersTeam2, goalKeeperTeam2);
+        teams[1] = team2;
 
         Coach coachTeam3 = new Coach("Gerardo", "Martino", 59, 24, false);
         GoalKeeper goalKeeperTeam3 = new GoalKeeper("Guillermo", "Ochoa", 37, 131, true);
@@ -68,8 +90,24 @@ public class Test {
         Forwards[] forwardsTeam3 = new Forwards[2];
         forwardsTeam3[0] = new Forwards("Raul", "Jimenez", 31, 40, true);
         forwardsTeam3[1] = new Forwards("Henry", "Martín", 29, 30, true);
-        Team team3 = new Team("Seleccion Mexicana de Futbol", "Mexico", coachTeam3, defendersTeam3, forwardsTeam3, midfieldersTeam3, goalKeeperTeam3);
-        view.print(team3.showInformation());
+        Team team3 = new Team("Seleccion Mexicana de Futbol", "Mexico", coachTeam3, 3, defendersTeam3, forwardsTeam3,
+                midfieldersTeam3, goalKeeperTeam3);
+        teams[2] = team3;
+
+        return teams;
+    }
+
+    public String showTeamsInformation() {
+        switch (view.ShowMenu("Ver información de: \n1. Equipo 1\n2. Equipo 2\n3. Equipo 3")) {
+            case 1:
+                return createTeams()[0].showInformation();
+            case 2:
+                return createTeams()[1].showInformation();
+            case 3:
+                return createTeams()[2].showInformation();
+            default:
+                return "Error, porfavor intentalo nuevamente";
+        }
     }
 
     public static void main(String[] args) {
