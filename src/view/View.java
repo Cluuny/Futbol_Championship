@@ -2,6 +2,14 @@ package view;
 
 import java.util.Scanner;
 
+/**
+ * Clase View la cual esta encargada de la comunicacion con el usuario y hace
+ * las veces de interfaz grafica
+ *
+ * @author Diego Aguirre, Vicente Matallana, Samir Molinares
+ * @version 1.0 18/10/2022
+ */
+
 public class View {
     private Scanner sc;
 
@@ -18,17 +26,6 @@ public class View {
     public int ShowMenu(String menuMessage) {
         System.out.println(menuMessage);
         return sc.nextInt();
-    }
-
-    /**
-     * Imprime un mensaje y recoge una serie de datos de tipo String
-     * 
-     * @param dataMessage
-     * @return String
-     */
-    public String collecData(String dataMessage) {
-        System.out.println(dataMessage);
-        return sc.nextLine();
     }
 
     /**

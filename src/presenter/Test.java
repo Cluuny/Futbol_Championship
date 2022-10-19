@@ -6,6 +6,13 @@ import model.person.Coach;
 import model.person.player.*;
 import view.View;
 
+/**
+ * Clase Test, contenedora del metodo main desde el cual parte la ejecucion del programa
+ *
+ * @author Diego Aguirre, Vicente Matallana, Samir Molinares
+ * @version 1.0 18/10/2022
+ */
+
 public class Test {
     private Championship championship;
     private View view;
@@ -24,6 +31,9 @@ public class Test {
         championship = new Championship(createTeams()[0], createTeams()[1], createTeams()[2]);
     }
 
+    /**
+     * Unico metodo que se ejecuta en el main, el cual está encargado de la ejecucion correcta del programa
+     */
     public void run() {
         do {
             int option = view.ShowMenu(menuMessage);
@@ -45,6 +55,7 @@ public class Test {
     }
 
     /**
+     * Metodo encargado de la creacion de los 3 equipos que conforman el campeonato de futbol
      * @return Team[]
      */
     public Team[] createTeams() {
@@ -56,11 +67,11 @@ public class Test {
         defendersTeam1[1] = new Defender("Davison", "Sánchez", 23, true);
         defendersTeam1[2] = new Defender("William", "Tesillo", 29, true);
         defendersTeam1[3] = new Defender("Stefan", "Medina", 29, true);
-        Midfielders[] midfieldersTeam1 = new Midfielders[4];
-        midfieldersTeam1[0] = new Midfielders("Mateus", "Uribe", 28, 12, true);
-        midfieldersTeam1[1] = new Midfielders("Wilmar", "Barrios", 25, 12, true);
-        midfieldersTeam1[2] = new Midfielders("Juan Guillermo", "Cuadrado", 31, 10, true);
-        midfieldersTeam1[3] = new Midfielders("James", "Rodríguez", 28, 32, true);
+        Midfielder[] midfieldersTeam1 = new Midfielder[4];
+        midfieldersTeam1[0] = new Midfielder("Mateus", "Uribe", 28, 12, true);
+        midfieldersTeam1[1] = new Midfielder("Wilmar", "Barrios", 25, 12, true);
+        midfieldersTeam1[2] = new Midfielder("Juan Guillermo", "Cuadrado", 31, 10, true);
+        midfieldersTeam1[3] = new Midfielder("James", "Rodríguez", 28, 32, true);
         Forwards[] forwardsTeam1 = new Forwards[2];
         forwardsTeam1[0] = new Forwards("Radamel", "Falcao", 33, 15, true);
         forwardsTeam1[1] = new Forwards("Duván", "Zapata", 28, 12, true);
@@ -76,11 +87,11 @@ public class Test {
         defendersTeam2[1] = new Defender("Lisandro", "Martinez", 24, true);
         defendersTeam2[2] = new Defender("Facundo", "Medina", 23, true);
         defendersTeam2[3] = new Defender("Nehuén", "Pérez", 22, true);
-        Midfielders[] midfieldersTeam2 = new Midfielders[4];
-        midfieldersTeam2[0] = new Midfielders("Nicolás", "Tagliafico", 30, 12, true);
-        midfieldersTeam2[1] = new Midfielders("Lionel", "Messi", 24, 10, true);
-        midfieldersTeam2[2] = new Midfielders("Gonzalo", "Motiel", 25, 11, true);
-        midfieldersTeam2[3] = new Midfielders("Rodrigo", "De Paul", 28, 23, true);
+        Midfielder[] midfieldersTeam2 = new Midfielder[4];
+        midfieldersTeam2[0] = new Midfielder("Nicolás", "Tagliafico", 30, 12, true);
+        midfieldersTeam2[1] = new Midfielder("Lionel", "Messi", 24, 10, true);
+        midfieldersTeam2[2] = new Midfielder("Gonzalo", "Motiel", 25, 11, true);
+        midfieldersTeam2[3] = new Midfielder("Rodrigo", "De Paul", 28, 23, true);
         Forwards[] forwardsTeam2 = new Forwards[2];
         forwardsTeam2[0] = new Forwards("Lautaro", "Martinez", 25, 4, true);
         forwardsTeam2[1] = new Forwards("Julian", "Alvarez", 22, 12, true);
@@ -96,11 +107,11 @@ public class Test {
         defendersTeam3[1] = new Defender("Johan", "Vásquez", 23, true);
         defendersTeam3[2] = new Defender("Nestor", "Araujo", 31, true);
         defendersTeam3[3] = new Defender("Hector", "Moreno", 34, true);
-        Midfielders[] midfieldersTeam3 = new Midfielders[4];
-        midfieldersTeam3[0] = new Midfielders("Carlos", "Rodríguez", 25, 15, true);
-        midfieldersTeam3[1] = new Midfielders("Érick", "Gutiérrez", 27, 14, true);
-        midfieldersTeam3[2] = new Midfielders("Luis", "Romero", 27, 10, true);
-        midfieldersTeam3[3] = new Midfielders("Fernando", "Beltrán", 24, 9, true);
+        Midfielder[] midfieldersTeam3 = new Midfielder[4];
+        midfieldersTeam3[0] = new Midfielder("Carlos", "Rodríguez", 25, 15, true);
+        midfieldersTeam3[1] = new Midfielder("Érick", "Gutiérrez", 27, 14, true);
+        midfieldersTeam3[2] = new Midfielder("Luis", "Romero", 27, 10, true);
+        midfieldersTeam3[3] = new Midfielder("Fernando", "Beltrán", 24, 9, true);
         Forwards[] forwardsTeam3 = new Forwards[2];
         forwardsTeam3[0] = new Forwards("Raul", "Jimenez", 31, 40, true);
         forwardsTeam3[1] = new Forwards("Henry", "Martín", 29, 30, true);
@@ -112,6 +123,7 @@ public class Test {
     }
 
     /**
+     * Metodo encargado de mostrar la informacion que se retorna desde la clase Team
      * @return String
      */
     public String showTeamsInformation() {
@@ -129,6 +141,7 @@ public class Test {
     }
 
     /**
+     * Punto de partida del programa
      * @param args
      */
     public static void main(String[] args) {

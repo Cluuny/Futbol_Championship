@@ -1,5 +1,12 @@
 package model;
 
+/**
+ * Clase Championship desde la cual se gestiona completamente el campeonato de futbol
+ *
+ * @author Diego Aguirre, Vicente Matallana, Samir Molinares
+ * @version 1.0 18/10/2022
+ */
+
 public class Championship {
 
     private String championshipRules = "El campeonato actualmente está conformado por 3 equipos, se van a jugar 3 partidos y la distribucioón de los puntos es la siguiente: "
@@ -45,11 +52,22 @@ public class Championship {
         this.dayRound = dayRound;
     }
 
+    
+    /** 
+     * Metodo encargado de la generacion de un numero aleatorio el cual significará el numero de goles anotados por un equipo en cada encuentro
+     * @return int
+     */
     public int generateRandomNumber() {
         randomNumber = (int) Math.floor(Math.random() * 5);
         return randomNumber;
     }
 
+    
+    /** 
+     * Sub menu de la administración del campeonato, desde aqui se controla la buena ejecucion de esta parte del programa
+     * @param optionChampionship
+     * @return String
+     */
     public String championshipMenu(int optionChampionship) {
         switch (optionChampionship) {
             case 1:
@@ -64,6 +82,14 @@ public class Championship {
         return "Volviendo al menú principal...";
     }
 
+    
+    /** 
+     * Metodo encargado de la creacion de los juegos.
+     * Aqui se decide practicamente todo sobre los equipos y se hacen los ajustes pertienentes a las estadisiticas de los mismos
+     * @param teamPlayer1
+     * @param teamPlayer2
+     * @return String
+     */
     public String playMatch(Team teamPlayer1, Team teamPlayer2) {
         teamPlayer1.setMatchGoals(generateRandomNumber());
         teamPlayer2.setMatchGoals(generateRandomNumber());
@@ -125,6 +151,12 @@ public class Championship {
         }
     }
 
+    
+    /** 
+     * Metodo encargado de invocar al metodo playDay() y completar una jornada del campeonato de 3 posibles
+     * @param dayRound controla el numero de fechas que se han jugado en el campeonato
+     * @return String
+     */
     public String playDay() {
         dayRound++;
         String roundState = "Ronda " + dayRound + "/3\n";
@@ -136,6 +168,11 @@ public class Championship {
         }
     }
 
+    
+    /** 
+     * Ordena por medio del ordenamiento de burbuja los puntos de los equipos y por ende a los equipos para la conformacion de la tabla de posiciones
+     * @return Team[]
+     */
     public Team[] sortByPoints() {
         Team[] teamsSorted = new Team[3];
         teamsSorted[0] = team1;
@@ -154,6 +191,11 @@ public class Championship {
         return teamsSorted;
     }
 
+    
+    /** 
+     * Metodo encargado de la creacion de la tabla de posiciones a partir de la invoacion del metodo sortByPoints()
+     * @return String
+     */
     public String makeLeaderBoard() {
         String leaderBoard = "";
         leaderBoard += "Clasificación general del campeonato: \n";

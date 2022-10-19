@@ -27,7 +27,7 @@ public class Team {
     private GoalKeeper goalKeeper;
     private Defender[] defender;
     private Forwards[] forwards;
-    private Midfielders[] midfielders;
+    private Midfielder[] midfielders;
 
     /**
      * Primer metodo constructor parametrizado
@@ -55,7 +55,7 @@ public class Team {
      */
 
     public Team(String name, String country, Coach coach, int idTEam, Defender[] defender, Forwards[] forwards,
-            Midfielders[] midfielders, GoalKeeper goalKeeper) {
+            Midfielder[] midfielders, GoalKeeper goalKeeper) {
         this(name, country);
         this.coach = coach;
         this.idTeam = idTEam;
@@ -185,14 +185,19 @@ public class Team {
         this.forwards = forwards;
     }
 
-    public Midfielders[] getMidfielders() {
+    public Midfielder[] getMidfielders() {
         return midfielders;
     }
 
-    public void setMidfielders(Midfielders[] midfielders) {
+    public void setMidfielders(Midfielder[] midfielders) {
         this.midfielders = midfielders;
     }
 
+    
+    /** 
+     * Metodo con el cual re retorna la informacion de todo el equipo, es decir, su plantilla de jugadores
+     * @return String
+     */
     public String showInformation() {
         String information = "";
         information += "Nombre del equipo: " + name + "\n Pais: " + country + "\n Entrenador: \n" + "  -  "
