@@ -8,12 +8,21 @@ public class Championship {
     private Team team1;
     private Team team2;
     private Team team3;
-    private int randomValue;
+    private int randomNumber;
+    private int dayRound = 0;
 
     public Championship(Team team1, Team team2, Team team3) {
         this.team1 = team1;
         this.team2 = team2;
         this.team3 = team3;
+    }
+
+    public String getChampionshipRules() {
+        return championshipRules;
+    }
+
+    public void setChampionshipRules(String championshipRules) {
+        this.championshipRules = championshipRules;
     }
 
     public Team getTeam1() {
@@ -28,31 +37,155 @@ public class Championship {
         return team3;
     }
 
-    public String decideByOption(int option) {
-        switch (option) {
+    public int getDayRound() {
+        return dayRound;
+    }
+
+    public void setDayRound(int dayRound) {
+        this.dayRound = dayRound;
+    }
+
+    public int generateRandomNumber() {
+        randomNumber = (int) Math.floor(Math.random() * 5);
+        return randomNumber;
+    }
+
+    public String championshipMenu(int optionChampionship) {
+        switch (optionChampionship) {
             case 1:
-                return championshipRules;
-            default:
+                return getChampionshipRules();
             case 2:
-                return play();
+                return playDay();
+            case 3:
+                return makeLeaderBoard();
+            case 4:
+                break;
+        }
+        return "Volviendo al menú principal...";
+    }
+
+    public String playMatch(Team teamPlayer1, Team teamPlayer2) {
+        teamPlayer1.setMatchGoals(generateRandomNumber());
+        teamPlayer2.setMatchGoals(generateRandomNumber());
+        // equipo 1 gana
+        if (teamPlayer1.getMatchGoals() > teamPlayer2.getMatchGoals()) {
+            // actualizacion de las estadisiticas del equipo 1
+            teamPlayer1.setPoints(teamPlayer1.getPoints() + 3);
+            teamPlayer1.setGamesWon(teamPlayer1.getGamesWon() + 1);
+            teamPlayer1.setGoalsScored(teamPlayer1.getGoalsScored() + teamPlayer1.getMatchGoals());
+            teamPlayer1.setGoalsAgainst(teamPlayer1.getGoalsAgainst() + teamPlayer2.getMatchGoals());
+
+            // actualizacion de las estadisiticas del equipo 2
+            teamPlayer2.setGamesLost(teamPlayer2.getGamesLost() + 1);
+            teamPlayer2.setGoalsScored(teamPlayer2.getGoalsScored() + teamPlayer2.getMatchGoals());
+            teamPlayer2.setGoalsAgainst(teamPlayer2.getGoalsAgainst() + teamPlayer1.getMatchGoals());
+
+            teamPlayer1.setMatchGoals(0);
+            teamPlayer2.setMatchGoals(0);
+            return teamPlayer1.getName() + " VS. " + teamPlayer2.getName() + " -> " + "Ganador: "
+                    + teamPlayer1.getName();
+        }
+        // Empate
+        else if (teamPlayer1.getMatchGoals() == teamPlayer2.getMatchGoals()) {
+            // actualizacion de las estadisiticas del equipo 1
+            teamPlayer1.setPoints(teamPlayer1.getPoints() + 1);
+            teamPlayer1.setGoalsScored(teamPlayer1.getGoalsScored() + teamPlayer1.getMatchGoals());
+            teamPlayer1.setGoalsAgainst(teamPlayer1.getGoalsAgainst() + teamPlayer2.getMatchGoals());
+            teamPlayer1.setGamesTied(teamPlayer1.getGamesTied() + 1);
+
+            // actualizacion de las estadisiticas del equipo 2
+            teamPlayer2.setPoints(teamPlayer2.getPoints() + 1);
+            teamPlayer2.setGoalsScored(teamPlayer2.getGoalsScored() + teamPlayer2.getMatchGoals());
+            teamPlayer2.setGoalsAgainst(teamPlayer2.getGoalsAgainst() + teamPlayer1.getMatchGoals());
+            teamPlayer2.setGamesTied(teamPlayer2.getGamesTied() + 1);
+
+            teamPlayer1.setMatchGoals(0);
+            teamPlayer2.setMatchGoals(0);
+            return teamPlayer1.getName() + " VS. " + teamPlayer2.getName() + " -> " + "Empate";
+
+        }
+        // Equipo 2 gana
+        else {
+            // actualizacion de las estadisiticas del equipo 1
+            teamPlayer1.setGamesLost(teamPlayer1.getGamesLost() + 1);
+            teamPlayer1.setGoalsScored(teamPlayer1.getGoalsScored() + teamPlayer1.getMatchGoals());
+            teamPlayer1.setGoalsAgainst(teamPlayer1.getGoalsAgainst() + teamPlayer2.getMatchGoals());
+
+            // actualizacion de las estadisiticas del equipo 2
+            teamPlayer2.setPoints(teamPlayer2.getPoints() + 3);
+            teamPlayer2.setGamesWon(teamPlayer2.getGamesWon() + 1);
+            teamPlayer2.setGoalsScored(teamPlayer2.getGoalsScored() + teamPlayer2.getMatchGoals());
+            teamPlayer2.setGoalsAgainst(teamPlayer2.getGoalsAgainst() + teamPlayer1.getMatchGoals());
+
+            teamPlayer1.setMatchGoals(0);
+            teamPlayer2.setMatchGoals(0);
+            return teamPlayer1.getName() + " VS. " + teamPlayer2.getName() + " -> " + "Ganador: "
+                    + teamPlayer2.getName();
+
         }
     }
 
-    public int generateRandomValue() {
-        randomValue = (int) Math.floor(Math.random() * 3);
-        return randomValue;
-    }
-
-    public String play() {
-        if (team1.getIdTeam() == generateRandomValue()) {
-            team1.setGaming(true);
-            return "Equipo 1";
-        } else if (team2.getIdTeam() == generateRandomValue()) {
-            team2.setGaming(true);
-            return "Equipo 2";
+    public String playDay() {
+        dayRound++;
+        String roundState = "Ronda " + dayRound + "/3\n";
+        if (dayRound < 4) {
+            return roundState + "Ganadores de la fecha: " + "\n" + playMatch(team1, team2) + "\n" + playMatch(team1, team3) + "\n"
+                    + playMatch(team2, team3);
         } else {
-            team3.setGaming(true);
-            return "Equipo 3";
+            return roundState + "Ya se han jugado todas las fechas del campeonato ";
         }
+    }
+
+    public Team[] sortByPoints() {
+        Team[] teamsSorted = new Team[3];
+        teamsSorted[0] = team1;
+        teamsSorted[1] = team2;
+        teamsSorted[2] = team3;
+
+        for (int x = 0; x < teamsSorted.length; x++) {
+            for (int i = 0; i < teamsSorted.length - x - 1; i++) {
+                if (teamsSorted[i].getPoints() < teamsSorted[i + 1].getPoints()) {
+                    Team tmp = teamsSorted[i + 1];
+                    teamsSorted[i + 1] = teamsSorted[i];
+                    teamsSorted[i] = tmp;
+                }
+            }
+        }
+        return teamsSorted;
+    }
+
+    public String makeLeaderBoard() {
+        String leaderBoard = "";
+        leaderBoard += "Clasificación general del campeonato: \n";
+        leaderBoard += "Primer lugar: \n";
+        leaderBoard += "\t" + sortByPoints()[0].getName() + "\n";
+        leaderBoard += "\tPuntos: " + sortByPoints()[0].getPoints() + "\n";
+        leaderBoard += "\tPartidos ganados/empatados/perdidos: " + sortByPoints()[0].getGamesWon() + "/"
+                + sortByPoints()[0].getGamesTied() + "/" + sortByPoints()[0].getGamesLost() + "\n";
+        leaderBoard += "\tGoles a favor/contra: " + sortByPoints()[0].getGoalsScored() + "/"
+                + sortByPoints()[0].getGoalsAgainst() + "\n";
+        leaderBoard += "\tDiferencia de gol: "
+                + (sortByPoints()[0].getGoalsScored() - sortByPoints()[0].getGoalsAgainst()) + "\n\n";
+
+        leaderBoard += "Segundo lugar: \n";
+        leaderBoard += "\t" + sortByPoints()[1].getName() + "\n";
+        leaderBoard += "\tPuntos: " + sortByPoints()[1].getPoints() + "\n";
+        leaderBoard += "\tPartidos ganados/empatados/perdidos: " + sortByPoints()[1].getGamesWon() + "/"
+                + sortByPoints()[1].getGamesTied() + "/" + sortByPoints()[1].getGamesLost() + "\n";
+        leaderBoard += "\tGoles a favor/contra: " + sortByPoints()[1].getGoalsScored() + "/"
+                + sortByPoints()[1].getGoalsAgainst() + "\n";
+        leaderBoard += "\tDiferencia de gol: "
+                + (sortByPoints()[1].getGoalsScored() - sortByPoints()[1].getGoalsAgainst()) + "\n\n";
+
+        leaderBoard += "Tercer lugar: \n";
+        leaderBoard += "\t" + sortByPoints()[2].getName() + "\n";
+        leaderBoard += "\tPuntos: " + sortByPoints()[2].getPoints() + "\n";
+        leaderBoard += "\tPartidos ganados/empatados/perdidos: " + sortByPoints()[2].getGamesWon() + "/"
+                + sortByPoints()[2].getGamesTied() + "/" + sortByPoints()[2].getGamesLost() + "\n";
+        leaderBoard += "\tGoles a favor/contra: " + sortByPoints()[2].getGoalsScored() + "/"
+                + sortByPoints()[2].getGoalsAgainst() + "\n";
+        leaderBoard += "\tDiferencia de gol: "
+                + (sortByPoints()[2].getGoalsScored() - sortByPoints()[2].getGoalsAgainst()) + "\n\n";
+        return leaderBoard;
     }
 }

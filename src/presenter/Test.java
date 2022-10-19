@@ -9,15 +9,15 @@ import view.View;
 public class Test {
     private Championship championship;
     private View view;
-    private String menuMessage = "Bienvenido, porfavor ingrese el numero asociado a la opcion que desea esocger: " +
+    private String menuMessage = "\nBienvenido, porfavor ingrese el numero asociado a la opcion que desea esocger: " +
             "\n1. Ver equipos de Futbol" +
             "\n2. Gestionar campeonato" +
             "\n3. Salir";
     private String championshipMenuMessage = "porfavor ingrese el numero asociado a la opcion que desea esocger: " +
             "\n1. Ver reglas del campeonato" +
-            "\n2. Jugar Siguiente ronda" +
+            "\n2. Jugar Siguiente fecha" +
             "\n3. Ver tabla de posiciones" +
-            "\n4. Salir";
+            "\n4. Volver al menu principal";
 
     public Test() {
         view = new View();
@@ -25,21 +25,23 @@ public class Test {
     }
 
     public void run() {
-        int option = view.ShowMenu(menuMessage);
-        switch (option) {
-            case 1:
-                view.print(showTeamsInformation());
-                break;
-            case 2:
-                view.print("" + championship.decideByOption(view.ShowMenu(championshipMenuMessage)));
-                break;
-            case 3:
-                view.print("Saliendo...");
-                System.exit(0);
-                break;
-            default:
-                view.print("Error, porfavor vuelva a intentarlo.");
-        }
+        do {
+            int option = view.ShowMenu(menuMessage);
+            switch (option) {
+                case 1:
+                    view.print(showTeamsInformation());
+                    break;
+                case 2:
+                    view.print(championship.championshipMenu(view.ShowMenu(championshipMenuMessage)));
+                    break;
+                case 3:
+                    view.print("Saliendo...");
+                    System.exit(0);
+                    break;
+                default:
+                    view.print("Error, porfavor vuelva a intentarlo.");
+            }
+        } while (true);
     }
 
     /**
@@ -113,7 +115,8 @@ public class Test {
      * @return String
      */
     public String showTeamsInformation() {
-        switch (view.ShowMenu("Ver información de: \n1. Equipo 1\n2. Equipo 2\n3. Equipo 3")) {
+        switch (view.ShowMenu("Ver información de: " + "\n1. " + createTeams()[0].getName() + "\n2. "
+                + createTeams()[1].getName() + "\n3. " + createTeams()[2].getName())) {
             case 1:
                 return createTeams()[0].showInformation();
             case 2:

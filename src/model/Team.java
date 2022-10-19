@@ -15,10 +15,12 @@ public class Team {
     private String name;
     private String country;
     private Coach coach;
+    private int points;
     private int idTeam;
     private int gamesWon;
     private int gamesTied;
     private int gamesLost;
+    private int matchGoals;
     private int goalsScored;
     private int goalsAgainst;
     private int goalsDifference;
@@ -26,7 +28,6 @@ public class Team {
     private Defender[] defender;
     private Forwards[] forwards;
     private Midfielders[] midfielders;
-    private boolean isGaming = false;
 
     /**
      * Primer metodo constructor parametrizado
@@ -63,7 +64,7 @@ public class Team {
         this.midfielders = midfielders;
         this.goalKeeper = goalKeeper;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -86,6 +87,14 @@ public class Team {
 
     public void setCoach(Coach coach) {
         this.coach = coach;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public int getIdTeam() {
@@ -118,6 +127,14 @@ public class Team {
 
     public void setGamesLost(int gamesLost) {
         this.gamesLost = gamesLost;
+    }
+
+    public int getMatchGoals() {
+        return matchGoals;
+    }
+
+    public void setMatchGoals(int matchGoals) {
+        this.matchGoals = matchGoals;
     }
 
     public int getGoalsScored() {
@@ -174,14 +191,6 @@ public class Team {
 
     public void setMidfielders(Midfielders[] midfielders) {
         this.midfielders = midfielders;
-    }
-
-    public boolean isGaming() {
-        return isGaming;
-    }
-
-    public void setGaming(boolean isGaming) {
-        this.isGaming = isGaming;
     }
 
     public String showInformation() {
